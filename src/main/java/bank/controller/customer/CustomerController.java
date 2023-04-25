@@ -21,6 +21,6 @@ public class CustomerController {
     @GetMapping(value = RestUrl.CUSTOMER_BY_UUID)
     public CustomerDto get(@PathVariable(value = "id") BigInteger id) {
 
-        return customerService.getByIdAndType(id, CustomerType.BUSINESS);
+        return customerService.getByIdOrThrow(id);
     }
 }

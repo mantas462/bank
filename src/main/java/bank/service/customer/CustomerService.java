@@ -25,9 +25,9 @@ public class CustomerService {
     private CardService cardService;
 
     @Transactional(readOnly = true)
-    public CustomerDto getByIdAndType(BigInteger id, CustomerType customerType) {
+    public CustomerDto getByIdOrThrow(BigInteger id) {
 
-        Customer customer = customerDao.findByIdAndType(id, customerType).orElseThrow(() -> new NoSuchElementException("Customer with id=[%s] does not exist".formatted(id)));
+        Customer customer = customerDao.findByIdAndType(id, CustomerType.BUSINESS).orElseThrow(() -> new NoSuchElementException("Customer with id=[%s] does not exist".formatted(id)));
         List<CardDto> cardList = cardService.findByCustomerAndCardType(customer, CardType.DEBIT);
 
         return CustomerMapper.toDto(customer, cardList);
